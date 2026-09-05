@@ -1,5 +1,5 @@
 <a href="/md_web/">
-  <img src="/img/favicon.png" alt="패비콘" width="32" height="32">
+  <img src="/img/favicon.png" alt="패비콘" width="64" height="64">
 </a>
 
 ---------------
