@@ -1,4 +1,4 @@
- > [![패비콘](./img/favicon.png)](/md_web/index.md) 
+ > [![패비콘](/img/favicon.png)](/md_web/) 
 
 ---------------
 
