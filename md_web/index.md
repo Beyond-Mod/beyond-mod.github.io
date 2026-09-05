@@ -1,4 +1,6 @@
- > [![패비콘](/img/favicon.png)](/md_web/) 
+<a href="/md_web/">
+  <img src="/img/favicon.png" alt="패비콘" width="32" height="32">
+</a>
 
 ---------------
 
