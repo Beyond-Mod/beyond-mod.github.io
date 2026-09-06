@@ -1,18 +1,245 @@
-<!DOCTYPE html> 
+<!doctype html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <title>Beyond Mod</title> 
-    <link rel="icon" type="image/png" href="favicon.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#101414">
+  <meta name="description" content="Beyond Mod — 새로운 것을 사지 않고, 있는 것의 가능성을 개조합니다.">
+  <title>Beyond Mod — Renovate Beyond</title>
+  <link rel="icon" type="image/png" href="img/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+KR:wght@500;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #101414;
+      --paper: #e9e8e1;
+      --acid: #d9ff45;
+      --muted: #9b9f94;
+      --line: rgba(233, 232, 225, .22);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-width: 320px;
+      color: var(--paper);
+      background: var(--ink);
+      font-family: "Noto Sans KR", sans-serif;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 10;
+      opacity: .15;
+      background: repeating-linear-gradient(0deg, transparent 0 3px, rgba(255,255,255,.18) 3px 4px);
+      mix-blend-mode: soft-light;
+    }
+    a { color: inherit; }
+    .shell { max-width: 1180px; margin: 0 auto; padding: 0 28px; }
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 76px;
+      border-bottom: 1px solid var(--line);
+      font: 500 12px/1 "IBM Plex Mono", monospace;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+    }
+    .brand { display: flex; align-items: center; gap: 11px; text-decoration: none; font-weight: 600; }
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 30px;
+      height: 30px;
+      color: var(--ink);
+      background: var(--acid);
+      clip-path: polygon(50% 0, 100% 22%, 100% 78%, 50% 100%, 0 78%, 0 22%);
+    }
+    .topbar span { color: var(--muted); }
+    .hero {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      min-height: 620px;
+      padding: 96px 0 52px;
+      border-bottom: 1px solid var(--line);
+      isolation: isolate;
+    }
+    .hero::after {
+      content: "B.M.";
+      position: absolute;
+      right: -18px;
+      bottom: -52px;
+      z-index: -1;
+      color: transparent;
+      font: 800 clamp(10rem, 28vw, 21rem)/.7 "IBM Plex Mono", monospace;
+      -webkit-text-stroke: 1px rgba(233,232,225,.10);
+      user-select: none;
+    }
+    .eyebrow {
+      margin: 0 0 25px;
+      color: var(--acid);
+      font: 500 12px/1.4 "IBM Plex Mono", monospace;
+      letter-spacing: .1em;
+    }
+    h1 {
+      max-width: 720px;
+      margin: 0;
+      font-size: clamp(3.3rem, 7vw, 6.7rem);
+      line-height: .96;
+      letter-spacing: -.075em;
+      word-break: keep-all;
+    }
+    .hero-copy {
+      max-width: 480px;
+      margin: 32px 0;
+      color: #c1c3bb;
+      font-size: clamp(1rem, 1.8vw, 1.23rem);
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    .cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 18px;
+      padding: 16px 20px;
+      color: var(--ink);
+      background: var(--acid);
+      text-decoration: none;
+      font: 600 14px/1 "IBM Plex Mono", monospace;
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .cta:hover { transform: translate(-4px, -4px); box-shadow: 5px 5px 0 var(--paper); }
+    .cta-arrow { font-size: 20px; line-height: 0; }
+    .specs {
+      align-self: end;
+      margin: 0 0 20px 42px;
+      border-top: 1px solid var(--line);
+    }
+    .spec { display: flex; justify-content: space-between; gap: 20px; padding: 17px 0; border-bottom: 1px solid var(--line); }
+    .spec dt { color: var(--muted); font: 400 11px/1.4 "IBM Plex Mono", monospace; letter-spacing: .06em; }
+    .spec dd { margin: 0; text-align: right; font-size: 14px; font-weight: 700; }
+    .statement { padding: 104px 0; border-bottom: 1px solid var(--line); }
+    .statement p {
+      max-width: 930px;
+      margin: 0;
+      font-size: clamp(2rem, 4.4vw, 4.25rem);
+      font-weight: 800;
+      line-height: 1.22;
+      letter-spacing: -.06em;
+      word-break: keep-all;
+    }
+    .highlight { color: var(--acid); }
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); }
+    .card {
+      min-height: 300px;
+      padding: 26px;
+      border-right: 1px solid var(--line);
+      transition: background .2s ease, color .2s ease;
+    }
+    .card:first-child { border-left: 1px solid var(--line); }
+    .card:hover { color: var(--ink); background: var(--acid); }
+    .card-no { color: var(--acid); font: 500 12px "IBM Plex Mono", monospace; }
+    .card:hover .card-no { color: var(--ink); }
+    .card h2 { margin: 80px 0 12px; font-size: 1.55rem; letter-spacing: -.04em; }
+    .card p { margin: 0; color: #b6b8ae; line-height: 1.75; word-break: keep-all; }
+    .card:hover p { color: #31352c; }
+    .join {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 30px;
+      padding: 72px 0;
+    }
+    .join h2 { margin: 0; font-size: clamp(2.1rem, 4vw, 3.8rem); letter-spacing: -.06em; word-break: keep-all; }
+    footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 21px 0 32px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font: 400 11px/1.5 "IBM Plex Mono", monospace;
+      letter-spacing: .04em;
+    }
+    @media (max-width: 760px) {
+      .shell { padding: 0 20px; }
+      .topbar span { display: none; }
+      .hero { display: block; min-height: auto; padding: 72px 0 48px; }
+      .specs { margin: 80px 0 0; }
+      .grid { grid-template-columns: 1fr; }
+      .card { min-height: 220px; border-left: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+      .card h2 { margin-top: 48px; }
+      .join { display: block; padding: 58px 0; }
+      .join .cta { margin-top: 30px; }
+      footer { flex-direction: column; }
+    }
+  </style>
 </head>
 <body>
-    <h1>이 사이트는 퀄리티가 떨어집니다. 더 좋은 퀄리티의 Beyond Mod 공식 사이트는 <a href="https://beyond-mod.github.io/md_web/" target="_blank">여기</a>입니다.</h1>
-    <h1>Beyond Mod</h1>
-    <h2>welcome to Beyond Mod!</h2>
-    <p>Beyond Mod (B.M.); We don't buy new things, we just renovate.</p>
-    <h2>개조 모임입니다.</h2>
-    <p>우리는 새로운 것을 사는 것이 아니라, 기존의 것을 개조합니다.</p>
-    <h2>가입 링크</h2>
-    <p>가입 링크는 <a href="https://docs.google.com/forms/d/e/1FAIpQLSdZAwnu_DWurU3uXGqGFksPoVQj3phNThvpm78qzdUhLF6oRQ/viewform" target="_blank">여기</a>입니다.</p>
+  <header class="shell topbar">
+    <a class="brand" href="/" aria-label="Beyond Mod 홈">
+      <span class="brand-mark">BM</span>
+      <span>Beyond Mod</span>
+    </a>
+    <span>Repair / Modify / Explore</span>
+  </header>
+
+  <main class="shell">
+    <section class="hero" aria-labelledby="hero-title">
+      <div>
+        <p class="eyebrow">[ BEYOND THE DEFAULT ]</p>
+        <h1 id="hero-title">새것을 사지 않는다.<br>가능성을 개조한다.</h1>
+        <p class="hero-copy">Beyond Mod는 낡았거나 평범한 물건에 다시 쓸 이유를 만드는 개조 모임입니다. 고쳐 쓰고, 바꿔 보고, 끝까지 파봅니다.</p>
+        <a class="cta" href="https://docs.google.com/forms/d/e/1FAIpQLSdZAwnu_DWurU3uXGqGFksPoVQj3phNThvpm78qzdUhLF6oRQ/viewform" target="_blank" rel="noreferrer">
+          JOIN THE MOD <span class="cta-arrow" aria-hidden="true">↗</span>
+        </a>
+      </div>
+      <dl class="specs">
+        <div class="spec"><dt>MISSION</dt><dd>Renovate, don’t replace.</dd></div>
+        <div class="spec"><dt>FIELD</dt><dd>Hardware · Software · Ideas</dd></div>
+        <div class="spec"><dt>STATUS</dt><dd>Always in progress.</dd></div>
+      </dl>
+    </section>
+
+    <section class="statement" aria-label="소개">
+      <p>우리는 완벽한 새 제품보다 <span class="highlight">손때 묻은 가능성</span>을 믿습니다.</p>
+    </section>
+
+    <section class="grid" aria-label="Beyond Mod의 방식">
+      <article class="card">
+        <span class="card-no">01 / REPAIR</span>
+        <h2>살려낸다</h2>
+        <p>고장 난 물건을 버리기 전에, 왜 멈췄는지부터 봅니다.</p>
+      </article>
+      <article class="card">
+        <span class="card-no">02 / MODIFY</span>
+        <h2>바꿔낸다</h2>
+        <p>정해진 용도를 넘어, 우리에게 필요한 방식으로 다시 설계합니다.</p>
+      </article>
+      <article class="card">
+        <span class="card-no">03 / SHARE</span>
+        <h2>함께 파낸다</h2>
+        <p>실패와 성공 모두를 기록하고, 다음 개조의 출발점으로 만듭니다.</p>
+      </article>
+    </section>
+
+    <section class="join" aria-label="가입">
+      <h2>재미있는 물건 하나면<br>시작하기에 충분하다.</h2>
+      <a class="cta" href="https://docs.google.com/forms/d/e/1FAIpQLSdZAwnu_DWurU3uXGqGFksPoVQj3phNThvpm78qzdUhLF6oRQ/viewform" target="_blank" rel="noreferrer">
+        APPLY NOW <span class="cta-arrow" aria-hidden="true">↗</span>
+      </a>
+    </section>
+  </main>
+
+  <footer class="shell">
+    <span>© BEYOND MOD</span>
+    <span>WE DON'T BUY NEW THINGS. WE RENOVATE.</span>
+  </footer>
 </body>
 </html>
